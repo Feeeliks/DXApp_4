@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:DXApp_4.Views"
+       xmlns:fa="clr-namespace:DXApp_4.Ressources"
+       Title="DXApp_4"
+       x:Class="DXApp_4.AppShell">
+
+    <!--
+        The overall app visual hierarchy is defined here, along with navigation.
+    
+        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
+    -->
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar>
+        <ShellContent Title="Dashboard" Route="DashboardPage" ContentTemplate="{DataTemplate local:DashboardPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="fa-solid" Size="Medium" Glyph="{x:Static fa:FaSolid.House}" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent Title="Book" Route="BookPage" ContentTemplate="{DataTemplate local:BookPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="fa-solid" Size="Medium" Glyph="{x:Static fa:FaSolid.Book}" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent Title="Report" Route="ReportPage" ContentTemplate="{DataTemplate local:ReportPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="fa-solid" Size="Medium" Glyph="{x:Static fa:FaSolid.ChartPie}" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent Title="Members" Route="MembersPage" ContentTemplate="{DataTemplate local:MembersPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="fa-solid" Size="Medium" Glyph="{x:Static fa:FaSolid.UserGroup}" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent Title="Settings" Route="SettingsPage" ContentTemplate="{DataTemplate local:SettingsPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="fa-solid" Size="Medium" Glyph="{x:Static fa:FaSolid.Sliders}" />
+            </ShellContent.Icon>
+        </ShellContent>
+    </TabBar>
+
+</Shell>

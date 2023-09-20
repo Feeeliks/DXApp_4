@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DXApp_4.Views.DashboardPage"
+             xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:fa="clr-namespace:DXApp_4.Ressources"
+             BackgroundColor="White"
+             Title="{Binding Title}">
+    <!--:DataType="viewmodels:DashboardViewModel"> Increase Perfomance of Data Binding -->
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <viewmodels:DashboardViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding AktuellesProjekt.Name}"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ListView Grid.Row="0" BackgroundColor="Transparent"
+                  ItemsSource="{Binding Projekte}"
+                  HasUnevenRows="True"
+                  SeparatorVisibility="None"
+                  IsPullToRefreshEnabled="True"
+                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                  RefreshCommand="{Binding RefreshCommand}"
+                  SelectedItem="{Binding SelectedProjekt, Mode=TwoWay}">
+            <ListView.Behaviors>
+                <xct:EventToCommandBehavior
+                EventName="ItemSelected"
+                Command="{Binding SelectedCommand}"
+                EventArgsConverter="{StaticResource ItemSelectedEventArgsConverter}"/>
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="5">
+                            <Frame CornerRadius="5" 
+                                   HasShadow="True">
+                                <StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding Name, StringFormat='Finanzen {0}'}"
+                                               VerticalOptions="Center"
+                                               FontSize="18"
+                                               TextColor="DarkSlateGray"/>
+                                        <Label Text="{Binding BestandGesamt, StringFormat='+{0:C2}'}"
+                                               VerticalOptions="Center"
+                                               FontSize="18"
+                                               TextColor="LimeGreen"
+                                               HorizontalOptions="EndAndExpand"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="&#xf073;"
+                                                   VerticalOptions="Center"
+                                                   FontSize="15"
+                                                   TextColor="SlateGray"
+                                                   FontFamily="fa-solid"/>
+                                            <Label Text="{Binding LetzteAktualisierung, StringFormat='{0}'}"
+                                                   VerticalOptions="Center"
+                                                   FontSize="15"
+                                                   TextColor="SlateGray"/>
+                                        </StackLayout>
+
+                                        <Label Text="{Binding AnzahlEintraege, StringFormat='{0} Einträge'}"
+                                               VerticalOptions="Center"
+                                               FontSize="15"
+                                               TextColor="SlateGray"
+                                               HorizontalOptions="EndAndExpand"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Grid.Row="0" 
+                BorderColor="Transparent" 
+                BorderWidth="1" 
+                FontAttributes="Bold" 
+                BackgroundColor="#5186b7" 
+                CornerRadius="25" 
+                TextColor="White"
+                HorizontalOptions="End" 
+                VerticalOptions="End" 
+                WidthRequest="50" 
+                HeightRequest="50" 
+                Margin="0,0,20,22"
+                Command="{Binding AddCommand}">
+            <Button.ImageSource>
+                <FontImageSource FontFamily="fa-solid" Size="Medium" Glyph="{x:Static fa:FaSolid.Plus}" />
+            </Button.ImageSource>
+        </Button>
+
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DXApp_4.Views.ProjektDetailsPage"
+             xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             xmlns:models="clr-namespace:DXApp_4.Models"
+             xmlns:fa="clr-namespace:DXApp_4.Ressources"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Delete" IsDestructive="True" Clicked="OnToolbarItemClicked"/>
+        <ToolbarItem Text="Edit"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackLayout Padding="20">
+            <Label Text="{Binding Name, StringFormat='Name: {0}'}"/>
+        </StackLayout>  
+        
+        <Button Grid.Row="0" 
+                BorderColor="Transparent" 
+                BorderWidth="1" 
+                FontAttributes="Bold" 
+                BackgroundColor="#5186b7" 
+                CornerRadius="25" 
+                TextColor="White"
+                HorizontalOptions="End" 
+                VerticalOptions="End" 
+                WidthRequest="50" 
+                HeightRequest="50" 
+                Margin="0,0,20,22">
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="fa-solid" Size="Medium" Glyph="{x:Static fa:FaSolid.Check}" />
+                    </Button.ImageSource>
+        </Button>
+
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             x:Class="DXApp_4.Views.AddProjektPage"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <viewmodels:AddProjektViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+    
+    <StackLayout Padding="20">
+
+        <Label Text="Name:"/>
+
+        <Entry Text="{Binding Name}"/>
+
+        <Label Text="Konto Vorjahr:"/>
+
+        <Entry Text="{Binding KontoVorjahr}"/>
+
+        <Label Text="Handkasse Vorjahr:"/>
+
+        <Entry Text="{Binding HandkasseVorjahr}"/>
+
+        <Label Text="Ausschankkasse Vorjahr:"/>
+
+        <Entry Text="{Binding AusschankkasseVorjahr}"/>
+
+        <Button
+                Padding="20,0"
+                Command="{Binding SaveCommand}"
+                HorizontalOptions="Center"
+                Text="Save"
+                VerticalOptions="EndAndExpand"/>
+
+    </StackLayout>
+
+    </ContentPage.Content>
+
+</ContentPage>
