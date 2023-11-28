@@ -35,17 +35,11 @@ namespace DXApp_4.Views
             ((ListView)sender).SelectedItem = null;
         }
 
-        bool isRefreshed = false;
-
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            if(!isRefreshed)
-            {
-                var viewModel = BindingContext as DashboardViewModel;
-                await viewModel.Refresh();
-                isRefreshed = true;
-            }
+            var viewModel = BindingContext as DashboardViewModel;
+            await viewModel.Refresh();
            
         }
     }

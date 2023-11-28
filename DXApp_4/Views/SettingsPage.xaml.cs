@@ -15,6 +15,7 @@ namespace DXApp_4.Views
 		public SettingsPage ()
 		{
 			InitializeComponent ();
-		}
+            BindingContext = App.SettingsViewModel;
+        }
 	}
 }

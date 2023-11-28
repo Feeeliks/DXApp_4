@@ -20,7 +20,7 @@
     </ContentPage.BindingContext>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding AktuellesProjekt.Name}"/>
+        <ToolbarItem Text="{Binding SelectedAktuellesProjekt.Name}"/>
     </ContentPage.ToolbarItems>
 
     <Grid>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             xmlns:fa="clr-namespace:DXApp_4.Ressources"
+             x:Class="DXApp_4.Views.SettingsImportMitgliederPage"
+             Title="{Binding Title}">
+
+    <ContentPage.Content>
+
+        <ScrollView>
+
+            <StackLayout Padding="20,20,20,40" Spacing="25">
+
+                <dxe:ComboBoxEdit LabelText="Projekt"
+                                  Grid.Row="0"
+                                  HelpText="Mitglieder werden aus dem hier ausgewählten Projekt in das aktuelle Projekt importiert"
+                                  x:Name="CBE"
+                                  DisplayMember="Name"
+                                  SelectedIndex="0"
+                                  SelectedItem="{Binding ImportProjekt}">
+
+                </dxe:ComboBoxEdit>
+
+                <dxe:SimpleButton WidthRequest="300"
+                                  HeightRequest="50"
+                                  HorizontalOptions="Center"
+                                  Text="Mitglieder importieren"
+                                  Command="{Binding ImportCommand}"/>
+
+            </StackLayout>
+
+        </ScrollView>
+
+    </ContentPage.Content>
+
+</ContentPage>

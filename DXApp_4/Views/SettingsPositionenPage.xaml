@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DXApp_4.Views.SettingsPositionenPage"
+             xmlns:dxg="http://schemas.devexpress.com/xamarin/2014/forms/datagrid"
+             xmlns:fa="clr-namespace:DXApp_4.Ressources"
+             xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding SettingsPositionenPage.Name}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <dxg:DataGridView x:Name="grid"
+                              IsPullToRefreshEnabled="True"
+                              IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                              PullToRefreshCommand="{Binding RefreshCommand}"
+                              ItemsSource="{Binding Positionen}"
+                              AllowVirtualHorizontalScrolling="True"
+                              ColumnHeaderHeight="75"
+                              AllowSort="False">
+
+                <dxg:DataGridView.ColumnHeaderStyle>
+                    <dxg:ColumnHeaderStyle FontAttributes="Bold" />
+                </dxg:DataGridView.ColumnHeaderStyle>
+
+                <dxg:DataGridView.StartSwipeItems>
+                    <dxg:SwipeItem Caption="Bearbeiten"
+                                   BackgroundColor="#4784f2"
+                                   Tap="Edit_Tap" />
+                    <dxg:SwipeItem Caption="Löschen"
+                                   BackgroundColor="#ff3b30"
+                                   Tap="Delete_Tap" />
+                </dxg:DataGridView.StartSwipeItems>
+
+                <dxg:DataGridView.Columns>
+                    <dxg:TextColumn FieldName="Name"
+                                    Caption="Position" />
+                    <dxg:TextColumn FieldName="Gruppe"
+                                    Caption="Gruppe" />
+                    <dxg:NumberColumn FieldName="Steuerklasse"
+                                      Caption="SK"
+                                      Width="Auto"
+                                      HorizontalContentAlignment="Center" />
+                    <dxg:CheckBoxColumn FieldName="Einnahme"
+                                        Caption="Ein."
+                                        Width="Auto" />
+                </dxg:DataGridView.Columns>
+            </dxg:DataGridView>
+
+            <Button Grid.Row="0"
+                    BorderColor="Transparent"
+                    BorderWidth="1"
+                    FontAttributes="Bold"
+                    BackgroundColor="#5186b7"
+                    CornerRadius="25"
+                    TextColor="White"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    Margin="0,0,20,22"
+                    Command="{Binding AddCommand}">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="fa-solid"
+                                     Size="Medium"
+                                     Glyph="{x:Static fa:FaSolid.Plus}" />
+                </Button.ImageSource>
+            </Button>
+
+        </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>

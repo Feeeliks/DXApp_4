@@ -1,23 +1,30 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DXApp_4.Views
+namespace DXApp_4.Models
 {
-    class KassenbucheintragModel
+    public class KassenbucheintragModel
     {
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        public string Datum { get; set; }
-        public string Position { get; set; }
-        public int Nummer { get; set; }
+        [Ignore]
+        public PositionModel Position { get; set; }
+        public string PositionJson { get; set; }
+
+        public DateTime Datum { get; set; }
+        public string DatumJson { get; set; }
+
+        public string Nummer { get; set; }
         public double Betrag { get; set; }
 
-        public bool Einnahme { get; set; }
+        public string Vorzeichen { get; set; }
 
+        public bool Konto { get; set; }
         public bool Handkasse { get; set; }
         public bool Ausschankkasse { get; set; }
-        public bool Konto { get; set; }
 
         public double KontoEinnahmen { get; set; }
         public double KontoAusgaben { get; set; }

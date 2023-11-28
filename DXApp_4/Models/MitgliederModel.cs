@@ -1,11 +1,13 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DXApp_4.Views
+namespace DXApp_4.Models
 {
-    class MitgliederModel
+    public class MitgliederModel
     {
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
         public string Vorname { get; set; }
@@ -17,8 +19,10 @@ namespace DXApp_4.Views
         public string EmailAdresse { get; set; }
         public string Telefonnummer { get; set; }
 
-        public int Mitgliedsstatus { get; set; }
-        public double Mitgliedsbeitrag { get; set; }
+        [Ignore]
+        public MitgliedstatusModel Mitgliedstatus { get; set; }
+        public string MitgliedstatusJson { get; set; }
+
         public bool Bezahlstatus { get; set; }
     }
 }

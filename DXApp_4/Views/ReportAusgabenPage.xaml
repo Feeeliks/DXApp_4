@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DXApp_4.Views.ReportAusgabenPage"
+             xmlns:dxg="http://schemas.devexpress.com/xamarin/2014/forms/datagrid"
+             xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding SelectedAktuellesProjekt.Name}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+
+        <Grid>
+
+            <dxg:DataGridView x:Name="grid"
+                              Grid.Row="0"
+                              ItemsSource="{Binding KassenberichtAusgaben}"
+                              IsPullToRefreshEnabled="True"
+                              IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                              PullToRefreshCommand="{Binding RefreshAusgabenCommand}"
+                              AllowVirtualHorizontalScrolling="True"
+                              ColumnHeaderHeight="75"
+                              SortMode="Multiple"
+                              AllowSort="False">
+
+                <dxg:DataGridView.ColumnHeaderStyle>
+                    <dxg:ColumnHeaderStyle FontAttributes="Bold" />
+                </dxg:DataGridView.ColumnHeaderStyle>
+
+                <dxg:DataGridView.TotalSummaries>
+                    <dxg:GridColumnSummary FieldName="Betrag"
+                                           Type="Sum"
+                                           DisplayFormat="Ausgaben: {0:C2}" />
+                </dxg:DataGridView.TotalSummaries>
+
+                <dxg:DataGridView.Columns>
+                    <dxg:TextColumn FieldName="Gruppe"
+                                    Caption="Gruppe"
+                                    MinWidth="120" />
+                    <dxg:NumberColumn FieldName="Betrag"
+                                      Caption="Betrag"
+                                      DisplayFormat="C2"
+                                      MinWidth="90" />
+                </dxg:DataGridView.Columns>
+            </dxg:DataGridView>
+
+        </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>

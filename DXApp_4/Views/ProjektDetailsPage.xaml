@@ -3,40 +3,133 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DXApp_4.Views.ProjektDetailsPage"
              xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             xmlns:sv="clr-namespace:AiForms.Renderers;assembly=SettingsView"
              xmlns:models="clr-namespace:DXApp_4.Models"
              xmlns:fa="clr-namespace:DXApp_4.Ressources"
-             Title="{Binding Title}">
+             Title="Projektdetails">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete" IsDestructive="True" Clicked="OnToolbarItemClicked"/>
-        <ToolbarItem Text="Edit"/>
+        <ToolbarItem Text="Löschen"
+                     IsDestructive="True"
+                     Clicked="Delete_Clicked" />
+        <ToolbarItem Text="Bearbeiten" 
+                     Clicked="Edit_Clicked"/>
     </ContentPage.ToolbarItems>
 
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackLayout Padding="20">
-            <Label Text="{Binding Name, StringFormat='Name: {0}'}"/>
-        </StackLayout>  
-        
-        <Button Grid.Row="0" 
-                BorderColor="Transparent" 
-                BorderWidth="1" 
-                FontAttributes="Bold" 
-                BackgroundColor="#5186b7" 
-                CornerRadius="25" 
+        <sv:SettingsView HasUnevenRows="True">
+
+            <sv:Section Title="Name">
+
+                <sv:ButtonCell Title="{Binding Name}"
+                               IconSize="18"
+                               IconRadius="0"
+                               Description=""
+                               TitleAlignment="Start">
+                    <sv:ButtonCell.IconSource>
+                        <FontImageSource FontFamily="fa-solid"
+                                         Size="Small"
+                                         Glyph="{x:Static fa:FaSolid.FileSignature}"
+                                         Color="{StaticResource NormalTextColor}" />
+                    </sv:ButtonCell.IconSource>
+                </sv:ButtonCell>
+
+            </sv:Section>
+
+            <sv:Section Title="Gesamtbestand">
+
+                <sv:ButtonCell Title="{Binding BestandGesamt, StringFormat='{0:C2}'}"
+                               IconSize="18"
+                               IconRadius="0"
+                               Description=""
+                               TitleAlignment="Start" >
+                    <sv:ButtonCell.IconSource>
+                        <FontImageSource FontFamily="fa-solid"
+                                         Size="Small"
+                                         Glyph="{x:Static fa:FaSolid.Landmark}"
+                                         Color="{StaticResource NormalTextColor}" />
+                    </sv:ButtonCell.IconSource>
+                </sv:ButtonCell>
+
+            </sv:Section>
+
+            <sv:Section Title="Bestand Konto">
+
+                <sv:ButtonCell Title="{Binding BestandKonto, StringFormat='{0:C2}'}"
+                               IconSize="18"
+                               IconRadius="0"
+                               Description=""
+                               TitleAlignment="Start">
+                    <sv:ButtonCell.IconSource>
+                        <FontImageSource FontFamily="fa-solid"
+                                         Size="Small"
+                                         Glyph="{x:Static fa:FaSolid.CreditCard}"
+                                         Color="{StaticResource NormalTextColor}" />
+                    </sv:ButtonCell.IconSource>
+                </sv:ButtonCell>
+
+            </sv:Section>
+
+            <sv:Section Title="Bestand Handkasse">
+
+                <sv:ButtonCell Title="{Binding BestandHandkasse, StringFormat='{0:C2}'}"
+                               IconSize="18"
+                               IconRadius="0"
+                               Description=""
+                               TitleAlignment="Start">
+                    <sv:ButtonCell.IconSource>
+                        <FontImageSource FontFamily="fa-solid"
+                                         Size="Small"
+                                         Glyph="{x:Static fa:FaSolid.Wallet}"
+                                         Color="{StaticResource NormalTextColor}" />
+                    </sv:ButtonCell.IconSource>
+                </sv:ButtonCell>
+
+            </sv:Section>
+
+            <sv:Section Title="Bestand Ausschankkasse">
+
+                <sv:ButtonCell Title="{Binding BestandAusschankkasse, StringFormat='{0:C2}'}"
+                               IconSize="18"
+                               IconRadius="0"
+                               Description=""
+                               TitleAlignment="Start">
+                    <sv:ButtonCell.IconSource>
+                        <FontImageSource FontFamily="fa-solid"
+                                         Size="Small"
+                                         Glyph="{x:Static fa:FaSolid.BeerMugEmpty}"
+                                         Color="{StaticResource NormalTextColor}" />
+                    </sv:ButtonCell.IconSource>
+                </sv:ButtonCell>
+
+            </sv:Section>
+
+        </sv:SettingsView>
+
+        <Button Grid.Row="0"
+                x:Name="SetButton"
+                BorderColor="Transparent"
+                BorderWidth="1"
+                FontAttributes="Bold"
+                BackgroundColor="#5186b7"
+                CornerRadius="25"
                 TextColor="White"
-                HorizontalOptions="End" 
-                VerticalOptions="End" 
-                WidthRequest="50" 
-                HeightRequest="50" 
-                Margin="0,0,20,22">
-                    <Button.ImageSource>
-                        <FontImageSource FontFamily="fa-solid" Size="Medium" Glyph="{x:Static fa:FaSolid.Check}" />
-                    </Button.ImageSource>
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                WidthRequest="50"
+                HeightRequest="50"
+                Margin="0,0,20,22"
+                Clicked="SetButton_Clicked">
+            <Button.ImageSource>
+                <FontImageSource FontFamily="fa-solid"
+                                 Size="Medium"
+                                 Glyph="{x:Static fa:FaSolid.Check}" />
+            </Button.ImageSource>
         </Button>
 
     </Grid>

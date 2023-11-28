@@ -1,11 +1,13 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DXApp_4.Views
+namespace DXApp_4.Models
 {
-    class PositionModel
+    public class PositionModel
     {
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
         public string Name { get; set; }

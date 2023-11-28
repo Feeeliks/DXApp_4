@@ -1,12 +1,198 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DXApp_4.Views.BookPage">
+             x:Class="DXApp_4.Views.BookPage"
+             xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             xmlns:services="clr-namespace:DXApp_4.Services"
+             xmlns:dxg="http://schemas.devexpress.com/xamarin/2014/forms/datagrid"
+             xmlns:fa="clr-namespace:DXApp_4.Ressources"
+             Title="{Binding Title}">
+    <!--
+    <ContentPage.BindingContext>
+        <viewmodels:BookViewModel />
+    </ContentPage.BindingContext>
+    -->
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding SelectedAktuellesProjekt.Name}" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <dxg:DataGridView x:Name="grid"
+                              Grid.Row="0"
+                              ItemsSource="{Binding Kassenbuch}"
+                              IsPullToRefreshEnabled="True"
+                              IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                              PullToRefreshCommand="{Binding RefreshCommand}"
+                              AllowVirtualHorizontalScrolling="True"
+                              ColumnHeaderHeight="75"
+                              SortMode="Multiple"
+                              AllowSort="False">
+
+                <dxg:DataGridView.StartSwipeItems>
+                    <dxg:SwipeItem Caption="Bearbeiten"
+                                   BackgroundColor="#4784f2" 
+                                   Tap="Edit_Tap"/>
+                    <dxg:SwipeItem Caption="Löschen"
+                                   BackgroundColor="#ff3b30" 
+                                   Tap="Delete_Tap"/>
+                </dxg:DataGridView.StartSwipeItems>
+
+                <dxg:DataGridView.SwipeItemStyle>
+                    <dxg:SwipeItemStyle Width="100" />
+                </dxg:DataGridView.SwipeItemStyle>
+
+                <dxg:DataGridView.ColumnHeaderStyle>
+                    <dxg:ColumnHeaderStyle FontAttributes="Bold" />
+                </dxg:DataGridView.ColumnHeaderStyle>
+                
+                <dxg:DataGridView.Columns>
+                    <dxg:DateColumn FieldName="Datum"
+                                    DisplayFormat="dd.MM.yyyy"
+                                    SortOrder="Ascending"
+                                    SortIndex="0"
+                                    IsGrouped="True"
+                                    GroupInterval="DateMonth" />
+                    <dxg:DateColumn FieldName="Datum"
+                                    MinWidth="90"
+                                    DisplayFormat="dd.MM.yyyy"
+                                    SortIndex="2"
+                                    SortOrder="Ascending" />
+                    <dxg:TextColumn FieldName="KontoB"
+                                    SortOrder="Descending"
+                                    SortIndex="1"
+                                    Caption="B"
+                                    MinWidth="40"
+                                    IsReadOnly="True"
+                                    HorizontalContentAlignment="End"
+                                    IsVisible="False"/>
+                    <dxg:TemplateColumn IsReadOnly="true"
+                                        AllowSort="False"
+                                        MinWidth="50"
+                                        Caption="Nr."
+                                        FieldName="Nummer"
+                                        HorizontalContentAlignment="Center"
+                                        AllowAutoFilter="True"
+                                        FixedStyle="Start">
+                        <dxg:TemplateColumn.DisplayTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Horizontal" Padding="0,20,0,0" HorizontalOptions="Center">
+                                    <Label Text="{Binding Item.Vorzeichen}" FontSize="12.5"/>
+                                    <Label Text="{Binding Item.Nummer}" FontSize="12.5"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </dxg:TemplateColumn.DisplayTemplate>
+                    </dxg:TemplateColumn>
+                    <!--
+                    <dxg:TextColumn FieldName="Nummer"
+                                    Caption="Nr."
+                                    MinWidth="50"
+                                    HorizontalContentAlignment="Center"
+                                    FontSize="13"/>
+                    -->
+                    <dxg:TextColumn FieldName="Position.Name"
+                                    IsReadOnly="True"
+                                    Caption="Positon"
+                                    MinWidth="175"
+                                    LineBreakMode="TailTruncation"
+                                    FixedStyle="None"
+                                    AllowAutoFilter="True"   />
+                    <dxg:NumberColumn FieldName="Betrag"
+                                      DisplayFormat="C2"
+                                      MinWidth="90"/>
+                    <dxg:NumberColumn FieldName="KontoEinnahmen"
+                                      IsReadOnly="True"
+                                      Caption="Einnahmen Konto"
+                                      DisplayFormat="C2"
+                                      MinWidth="90"/>
+                    <dxg:NumberColumn FieldName="KontoAusgaben"
+                                      IsReadOnly="True"
+                                      Caption="Ausgaben Konto"
+                                      DisplayFormat="C2"
+                                      MinWidth="90"/>
+                    <dxg:NumberColumn FieldName="HandkasseEinnahmen"
+                                      IsReadOnly="True"
+                                      Caption="Einnahmen Kasse"
+                                      DisplayFormat="C2"
+                                      MinWidth="90"/>
+                    <dxg:NumberColumn FieldName="HandkasseAusgaben"
+                                      IsReadOnly="True"
+                                      Caption="Ausgaben Kasse"
+                                      DisplayFormat="C2"
+                                      MinWidth="90"/>
+                    <dxg:NumberColumn FieldName="Steuerklasse1Einnahmen"
+                                      Caption="Einnahmen Steuerklasse I"
+                                      LineBreakMode="NoWrap"
+                                      IsReadOnly="True"
+                                      DisplayFormat="C2"
+                                      MinWidth="120"/>
+                    <dxg:NumberColumn FieldName="Steuerklasse1Ausgaben"
+                                      Caption="Ausgaben Steuerklasse I"
+                                      IsReadOnly="True"
+                                      DisplayFormat="C2"
+                                      MinWidth="120"/>
+                    <dxg:NumberColumn FieldName="Steuerklasse2Einnahmen"
+                                      Caption="Einnahmen Steuerklasse II"
+                                      IsReadOnly="True"
+                                      DisplayFormat="C2"
+                                      MinWidth="120"/>
+                    <dxg:NumberColumn FieldName="Steuerklasse2Ausgaben"
+                                      Caption="Ausgaben Steuerklasse II"
+                                      IsReadOnly="True"
+                                      DisplayFormat="C2"
+                                      MinWidth="120" />
+                    <dxg:NumberColumn FieldName="Steuerklasse3Einnahmen"
+                                      Caption="Einnahmen Steuerklasse III"
+                                      IsReadOnly="True"
+                                      DisplayFormat="C2"
+                                      MinWidth="125" />
+                    <dxg:NumberColumn FieldName="Steuerklasse3Ausgaben"
+                                      Caption="Ausgaben Steuerklasse III"
+                                      IsReadOnly="True"
+                                      DisplayFormat="C2"
+                                      MinWidth="125"/>
+                    <dxg:NumberColumn FieldName="Steuerklasse4Einnahmen"
+                                      Caption="Einnahmen Steuerklasse IV"
+                                      IsReadOnly="True"
+                                      DisplayFormat="C2"
+                                      MinWidth="125" />
+                    <dxg:NumberColumn FieldName="Steuerklasse4Ausgaben"
+                                      Caption="Ausgaben Steuerklasse IV"
+                                      IsReadOnly="True"
+                                      DisplayFormat="C2"
+                                      MinWidth="125" />
+                </dxg:DataGridView.Columns>
+            </dxg:DataGridView>
+
+            <Button Grid.Row="0"
+                    BorderColor="Transparent"
+                    BorderWidth="1"
+                    FontAttributes="Bold"
+                    BackgroundColor="#5186b7"
+                    CornerRadius="25"
+                    TextColor="White"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    Margin="0,0,20,22"
+                    Command="{Binding AddCommand}">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="fa-solid"
+                                     Size="Medium"
+                                     Glyph="{x:Static fa:FaSolid.Plus}" />
+                </Button.ImageSource>
+            </Button>
+
+        </Grid>
+
     </ContentPage.Content>
+
 </ContentPage>

@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             xmlns:fa="clr-namespace:DXApp_4.Ressources"
+             x:Class="DXApp_4.Views.AddMitgliederPage"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <viewmodels:AddMitgliederViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+
+        <ScrollView>
+
+            <StackLayout Padding="20,10,20,20">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="0" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="0" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="0" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="0" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="0" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackLayout Grid.Row="0"
+                                 Orientation="Horizontal">
+
+                        <dxe:TextEdit LabelText="Vorname"
+                                      Text="{Binding Vorname}"
+                                      TextHorizontalAlignment="Start"
+                                      HorizontalOptions="FillAndExpand"
+                                      HasError="{Binding VornameHasError}"/>
+
+                        <dxe:TextEdit LabelText="Nachname"
+                                      Text="{Binding Nachname}"
+                                      TextHorizontalAlignment="Start"
+                                      HorizontalOptions="End"
+                                      BoxMinWidth="185"
+                                      HasError="{Binding NachnameHasError}"/>
+
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="2"
+                                 Orientation="Horizontal">
+
+                        <dxe:TextEdit LabelText="Straße"
+                                      Text="{Binding Strasse}"
+                                      TextHorizontalAlignment="Start"
+                                      HorizontalOptions="FillAndExpand"
+                                      HasError="{Binding StrasseHasError}"/>
+
+                        <dxe:TextEdit LabelText="Nr."
+                                      Text="{Binding Hausnummer}"
+                                      TextHorizontalAlignment="Start"
+                                      HorizontalOptions="End"
+                                      BoxMinWidth="100"
+                                      Keyboard="Numeric"
+                                      HasError="{Binding HausnummerHasError}"/>
+
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="4"
+                                 Orientation="Horizontal">
+
+                        <dxe:TextEdit LabelText="PLZ"
+                                      Text="{Binding PLZ}"
+                                      TextHorizontalAlignment="Start"
+                                      HorizontalOptions="FillAndExpand"
+                                      Keyboard="Numeric"
+                                      HasError="{Binding PLZHasError}"/>
+
+                        <dxe:TextEdit LabelText="Ort"
+                                      Text="{Binding Ort}"
+                                      TextHorizontalAlignment="Start"
+                                      HorizontalOptions="End"
+                                      BoxMinWidth="250"
+                                      HasError="{Binding OrtHasError}"/>
+
+                    </StackLayout>
+
+                    <dxe:TextEdit Grid.Row="6"
+                                  LabelText="E-Mail"
+                                  Text="{Binding Email}"
+                                  TextHorizontalAlignment="Start"
+                                  HorizontalOptions="FillAndExpand"
+                                  Keyboard="Email"
+                                  HasError="{Binding EmailHasError}" />
+
+                    <dxe:TextEdit Grid.Row="8"
+                                  LabelText="Telefon"
+                                  Text="{Binding Telefon}"
+                                  TextHorizontalAlignment="Start"
+                                  Keyboard="Telephone"
+                                  HorizontalOptions="FillAndExpand"
+                                  HasError="{Binding TelefonHasError}" />
+
+                    <dxe:ComboBoxEdit Grid.Row="10"
+                                      LabelText="Mitgliedsstatus"
+                                      DisplayMember="Mitgliedsstatus"
+                                      SelectedIndex="0"
+                                      x:Name="CBE"
+                                      SelectedItem="{Binding Mitgliedsstatus}">
+
+                        <dxe:ComboBoxEdit.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Padding="10"
+                                           Grid.Column="0"
+                                           Text="{Binding Mitgliedsstatus}"
+                                           FontAttributes="Bold" />
+                                    <Label Padding="10"
+                                           Grid.Column="1"
+                                           Text="{Binding Mitgliedsbeitrag, StringFormat='{0:C2}'}"
+                                           HorizontalTextAlignment="End" />
+                                </Grid>
+                            </DataTemplate>
+                        </dxe:ComboBoxEdit.ItemTemplate>
+
+                    </dxe:ComboBoxEdit>
+
+                </Grid>
+
+                <dxe:SimpleButton Padding="20,0"
+                                  WidthRequest="300"
+                                  HeightRequest="50"
+                                  HorizontalOptions="Center"
+                                  Text="Mitglied hinzufügen"
+                                  VerticalOptions="EndAndExpand"
+                                  Command="{Binding AddCommand}"/>
+
+            </StackLayout>
+
+        </ScrollView>
+
+    </ContentPage.Content>
+
+</ContentPage>

@@ -1,12 +1,147 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DXApp_4.Views.SettingsPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             x:Class="DXApp_4.Views.SettingsPage"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             xmlns:fa="clr-namespace:DXApp_4.Ressources"
+             xmlns:sv="clr-namespace:AiForms.Renderers;assembly=SettingsView"
+             xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <viewmodels:SettingsViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding SelectedAktuellesProjekt.Name}" />
+    </ContentPage.ToolbarItems>
+
+    <sv:SettingsView HasUnevenRows="True">
+
+        <sv:Section Title="Mitglieder">
+
+            <sv:ButtonCell Title="Mitglieder importieren"
+                           IconSize="18"
+                           IconRadius="0"
+                           Description="Mitglieder aus früheren Projekten in das aktuell ausgewählte Projekt importieren und Bezahlstatus zurücksetzen"
+                           TitleAlignment="Start"
+                           Command="{Binding ImportCommand}">
+                <sv:ButtonCell.IconSource>
+                    <FontImageSource FontFamily="fa-solid"
+                                     Size="Small"
+                                     Glyph="{x:Static fa:FaSolid.Users}"
+                                     Color="{StaticResource NormalTextColor}" />
+                </sv:ButtonCell.IconSource>
+            </sv:ButtonCell>
+
+            <sv:CustomCell ShowArrowIndicator="True"
+                           Description="Mitgliedsbeiträge bearbeiten"
+                           Command="{Binding BeitragCommand}">
+
+                <Label Text="Mitgliedsbeiträge anpassen"
+                       FontSize="{StaticResource BaseFontSize++}"
+                       TextColor="{StaticResource NormalTextColor}" />
+
+            </sv:CustomCell>
+
+        </sv:Section>
+
+        <sv:Section Title="Positionen">
+
+            <sv:CustomCell ShowArrowIndicator="True"
+                           Command="{Binding PositionCommand}">
+
+                <Label Text="Positionen bearbeiten"
+                       FontSize="{StaticResource BaseFontSize++}"
+                       TextColor="{StaticResource NormalTextColor}" />
+
+            </sv:CustomCell>
+
+        </sv:Section>
+
+        <sv:Section Title="Kassenprüfer">
+
+            <sv:CustomCell ShowArrowIndicator="True"
+                           Command="{Binding PruefungCommand}"
+                           Description="Namen und Adressen des Kassenwarts sowie beider Kassenprüfer für die Berichte anpassen">
+
+                <Label Text="Kassenprüfer bearbeiten"
+                       FontSize="{StaticResource BaseFontSize++}"
+                       TextColor="{StaticResource NormalTextColor}" />
+
+            </sv:CustomCell>
+
+        </sv:Section>
+
+        <sv:Section Title="Export">
+
+            <sv:ButtonCell Title="Kassenbücher herunterladen"
+                           Command="{Binding BookCommand}"
+                           IconSize="18"
+                           IconRadius="0"
+                           TitleAlignment="Start"
+                           Description="Erstellt vier PDF-Dokumente (Gesamt, Konto, Hand-, Ausschankkasse)">
+                <sv:ButtonCell.IconSource>
+                    <FontImageSource FontFamily="fa-solid"
+                                     Size="Small"
+                                     Glyph="{x:Static fa:FaSolid.FilePdf}"
+                                     Color="{StaticResource NormalTextColor}" />
+                </sv:ButtonCell.IconSource>
+            </sv:ButtonCell>
+            <sv:ButtonCell Title="Kassenbericht herunterladen"
+                           Command="{Binding ReportCommand}"
+                           Description="Erstellt ein PDF-Dokument"
+                           IconSize="18"
+                           IconRadius="0"
+                           TitleAlignment="Start">
+                <sv:ButtonCell.IconSource>
+                    <FontImageSource FontFamily="fa-solid"
+                                     Size="Small"
+                                     Glyph="{x:Static fa:FaSolid.FilePdf}"
+                                     Color="{StaticResource NormalTextColor}" />
+                </sv:ButtonCell.IconSource>
+            </sv:ButtonCell>
+            <sv:ButtonCell Title="Kassenprüfberichte herunterladen"
+                           Command="{Binding CheckCommand}"
+                           Description="Erstellt zwei PDF-Dokumente (Konto/Handkasse und Ausschankkasse)"
+                           IconSize="18"
+                           IconRadius="0"
+                           TitleAlignment="Start">
+                <sv:ButtonCell.IconSource>
+                    <FontImageSource FontFamily="fa-solid"
+                                     Size="Small"
+                                     Glyph="{x:Static fa:FaSolid.FilePdf}"
+                                     Color="{StaticResource NormalTextColor}" />
+                </sv:ButtonCell.IconSource>
+            </sv:ButtonCell>
+
+        </sv:Section>
+
+        <sv:Section Title="Darstellung">
+
+            <sv:SwitchCell Title="Dunkler Modus"
+                           IsEnabled="True" />
+
+        </sv:Section>
+
+        <sv:Section Title="Info">
+
+            <sv:ButtonCell Title="Informationen"
+                           IconSize="18"
+                           IconRadius="0"
+                           Description="Grundlegende Bedienung und Begriffserklärungen"
+                           TitleAlignment="Start"
+                           Command="{Binding ImportCommand}">
+                <sv:ButtonCell.IconSource>
+                    <FontImageSource FontFamily="fa-solid"
+                                     Size="Small"
+                                     Glyph="{x:Static fa:FaSolid.CircleInfo}"
+                                     Color="{StaticResource NormalTextColor}" />
+                </sv:ButtonCell.IconSource>
+            </sv:ButtonCell>
+
+        </sv:Section>
+
+    </sv:SettingsView>
+
 </ContentPage>

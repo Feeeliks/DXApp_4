@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             xmlns:fa="clr-namespace:DXApp_4.Ressources"
+             x:Class="DXApp_4.Views.AddBookPage"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <viewmodels:AddBookViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+
+        <ScrollView>
+
+            <StackLayout Padding="20,20,20,40">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <dxe:DateEdit LabelText="Datum"
+                                  ErrorText="Datum erforderlich"
+                                  TextHorizontalAlignment="Start"
+                                  HelpText="Rechnungsdatum"
+                                  Date="{Binding Datum}"
+                                  DisplayFormat="dd.MM.yyyy"/>
+
+                    <dxe:ComboBoxEdit LabelText="Position"
+                                      Grid.Row="2"
+                                      ItemsSource="{Binding Positionen}"
+                                      DisplayMember="Name"
+                                      x:Name="CBoxEdit"
+                                      HelpText="Name, Ein./Aus., Steuer"
+                                      SelectedItem="{Binding Position}"
+                                      SelectedIndex="0">
+
+                        <dxe:ComboBoxEdit.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Padding="10"
+                                           Grid.Column="0"
+                                           Text="{Binding Name}"
+                                           FontAttributes="Bold" />
+                                    <Label Padding="10,10,35,10"
+                                           Grid.Column="1">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label"
+                                                         Binding="{Binding Einnahme}"
+                                                         Value="True">
+                                                <Setter Property="Text"
+                                                        Value="Einnahme" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label"
+                                                         Binding="{Binding Einnahme}"
+                                                         Value="False">
+                                                <Setter Property="Text"
+                                                        Value="Ausgabe" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label Padding="10"
+                                           Grid.Column="2"
+                                           Text="{Binding Steuerklasse}"
+                                           HorizontalTextAlignment="End" />
+                                </Grid>
+                            </DataTemplate>
+                        </dxe:ComboBoxEdit.ItemTemplate>
+
+                    </dxe:ComboBoxEdit>
+
+                    <StackLayout Grid.Row="4"
+                                 Orientation="Vertical">
+
+                        <dxe:NumericEdit LabelText="Betrag"
+                                         DisplayFormat="c"
+                                         ErrorText="Betrag erforderlich"
+                                         SelectValueOnFocus="True"
+                                         TextHorizontalAlignment="Start"
+                                         BoxHeight="55"
+                                         Value="{Binding Betrag}" />
+
+                        <dxe:ChoiceChipGroup IsMultiline="False"
+                                             HorizontalOptions="Center"
+                                             ChipUseRippleEffect="True"
+                                             Margin="0,0,0,0"
+                                             SelectedIndex="{Binding ChipIndex}">
+
+                            <dxe:Chip Text="Konto"
+                                      x:Name="Konto" />
+
+                            <dxe:Chip Text="Handkasse"
+                                      x:Name="Handkasse" />
+
+                            <dxe:Chip Text="Ausschank"
+                                      x:Name="Ausschank" />
+
+                        </dxe:ChoiceChipGroup>
+
+                    </StackLayout>
+
+                </Grid>
+
+                <dxe:SimpleButton Padding="20,0"
+                                  WidthRequest="300"
+                                  HeightRequest="50"
+                                  HorizontalOptions="Center"
+                                  Text="Eintrag erstellen"
+                                  VerticalOptions="EndAndExpand"
+                                  Command="{Binding AddCommand}" />
+
+            </StackLayout>
+
+        </ScrollView>
+
+    </ContentPage.Content>
+
+</ContentPage>

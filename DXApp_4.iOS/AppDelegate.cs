@@ -23,6 +23,13 @@ namespace DXApp_4.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            DevExpress.XamarinForms.DataGrid.iOS.Initializer.Init();
+            DevExpress.XamarinForms.Editors.iOS.Initializer.Init();
+            DevExpress.XamarinForms.DataForm.iOS.Initializer.Init();
+            DevExpress.XamarinForms.Popup.iOS.Initializer.Init();
+            DevExpress.XamarinForms.Charts.iOS.Initializer.Init(); 
+            AiForms.Renderers.iOS.SettingsViewInit.Init();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

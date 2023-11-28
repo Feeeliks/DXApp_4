@@ -16,6 +16,14 @@ namespace DXApp_4.ViewModels
 
         public string ProjektId {  get; set; }
 
+        private bool _hasError;
+
+        public bool HasError
+        {
+            get => _hasError;
+            set => SetProperty(ref _hasError, value);
+        }
+
         public int Name
         {
             get => _name;
@@ -55,8 +63,13 @@ namespace DXApp_4.ViewModels
         //Methods
         async Task Save()
         {
-            await ProjektService.AddProjekt(_name, _kontoVorjahr, _handkasseVorjahr, _ausschankkasseVorjahr);
+            if (Name < 2000 || Name > 2500)
+            {
+                HasError = true;
+                return; // Keine weitere Verarbeitung, wenn ein Fehler aufgetreten ist
+            }
 
+            await ProjektService.AddProjekt(_name, _kontoVorjahr, _handkasseVorjahr, _ausschankkasseVorjahr);
             await Shell.Current.GoToAsync("..");
         }
     }

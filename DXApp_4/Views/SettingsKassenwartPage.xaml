@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DXApp_4.Views.SettingsKassenwartPage"
+             xmlns:dxg="http://schemas.devexpress.com/xamarin/2014/forms/datagrid"
+             xmlns:fa="clr-namespace:DXApp_4.Ressources"
+             xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             Title="{Binding Title}">
+
+    <ContentPage.Content>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <dxg:DataGridView x:Name="grid"
+                              IsPullToRefreshEnabled="True"
+                              IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                              PullToRefreshCommand="{Binding RefreshCommand}"
+                              ItemsSource="{Binding Kassenwart}"
+                              AllowVirtualHorizontalScrolling="True"
+                              ColumnHeaderHeight="75"
+                              RowHeight="75"
+                              AllowSort="False">
+
+                <dxg:DataGridView.ColumnHeaderStyle>
+                    <dxg:ColumnHeaderStyle FontAttributes="Bold" />
+                </dxg:DataGridView.ColumnHeaderStyle>
+
+                <dxg:DataGridView.StartSwipeItems>
+                    <dxg:SwipeItem Caption="Bearbeiten"
+                                   BackgroundColor="#4784f2"
+                                   Tap="Edit_Tap" />
+                </dxg:DataGridView.StartSwipeItems>
+
+                <dxg:DataGridView.Columns>
+                    <dxg:TextColumn FieldName="Vorname"
+                                    Caption="Vorname"
+                                    MinWidth="100" />
+                    <dxg:TextColumn FieldName="Nachname"
+                                    Caption="Nachname"
+                                    MinWidth="100"/>
+                    <dxg:TextColumn FieldName="Strasse"
+                                    Caption="Straße"
+                                    MinWidth="100" />
+                    <dxg:TextColumn FieldName="Hausnummer"
+                                    Caption="Nr."
+                                    MinWidth="60" />
+                    <dxg:TextColumn FieldName="Postleitzahl"
+                                    Caption="PLZ"
+                                    MinWidth="75" />
+                    <dxg:TextColumn FieldName="Ort"
+                                    Caption="Ort"
+                                    MinWidth="100" />
+                </dxg:DataGridView.Columns>
+            </dxg:DataGridView>
+
+        </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>

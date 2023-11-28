@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DXApp_4.Views.EditProjektPage"
+             xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             Title="Projekt bearbeiten">
+
+    <ContentPage.Content>
+
+        <StackLayout Padding="20,20,20,40">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <dxe:NumericEdit LabelText="Vorjahresbestand Konto"
+                                 x:Name="VorjahresbestandKonto"
+                                 DisplayFormat="c"
+                                 Value="{Binding BestandKontoVorjahr}"
+                                 Grid.Row="0"
+                                 ErrorText="Betrag erforderlich"
+                                 IsUpDownIconVisible="True"
+                                 UpDownIconAlignment="Start" 
+                                 SelectValueOnFocus="True"/>
+
+                <dxe:NumericEdit LabelText="Vorjahresbestand Handkasse"
+                                 x:Name="VorjahresbestandHandkasse"
+                                 DisplayFormat="c"
+                                 Value="{Binding BestandHandkasseVorjahr}"
+                                 Grid.Row="2"
+                                 ErrorText="Betrag erforderlich"
+                                 IsUpDownIconVisible="True"
+                                 UpDownIconAlignment="Start"
+                                 SelectValueOnFocus="True" />
+
+                <dxe:NumericEdit LabelText="Vorjahresbestand Ausschankkasse"
+                                 x:Name="VorjahresbestandAusschankkasse"
+                                 DisplayFormat="c"
+                                 Value="{Binding BestandAusschankkasseVorjahr}"
+                                 Grid.Row="4"
+                                 ErrorText="Betrag erforderlich"
+                                 IsUpDownIconVisible="True"
+                                 UpDownIconAlignment="Start"
+                                 SelectValueOnFocus="True" />
+
+            </Grid>
+
+            <dxe:SimpleButton Padding="20,0"
+                              WidthRequest="300"
+                              HeightRequest="50"
+                              HorizontalOptions="Center"
+                              Text="Speichern"
+                              Clicked="SimpleButton_Clicked"
+                              VerticalOptions="EndAndExpand" />
+
+        </StackLayout>
+
+    </ContentPage.Content>
+
+</ContentPage>

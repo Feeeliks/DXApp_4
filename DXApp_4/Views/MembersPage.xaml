@@ -1,12 +1,112 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DXApp_4.Views.MembersPage">
+             x:Class="DXApp_4.Views.MembersPage"
+             xmlns:dxg="http://schemas.devexpress.com/xamarin/2014/forms/datagrid"
+             xmlns:fa="clr-namespace:DXApp_4.Ressources"
+             xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding SelectedAktuellesProjekt.Name}" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <dxg:DataGridView x:Name="grid"
+                              ItemsSource="{Binding Mitglieder}"
+                              IsPullToRefreshEnabled="True"
+                              IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                              PullToRefreshCommand="{Binding RefreshCommand}"
+                              AllowVirtualHorizontalScrolling="True"
+                              ColumnHeaderHeight="75"
+                              SortMode="Multiple"
+                              AllowSort="False">
+
+                <dxg:DataGridView.ColumnHeaderStyle>
+                    <dxg:ColumnHeaderStyle FontAttributes="Bold" />
+                </dxg:DataGridView.ColumnHeaderStyle>
+                
+                <dxg:DataGridView.StartSwipeItems>
+                    <dxg:SwipeItem Caption="Bezahlt"
+                                   BackgroundColor="Green" 
+                                   Tap="Bezahlt_Tap"/>
+                    <dxg:SwipeItem Caption="Bearbeiten"
+                                   BackgroundColor="#4784f2" 
+                                   Tap="Edit_Tap"/>
+                    <dxg:SwipeItem Caption="Löschen"
+                                   BackgroundColor="#ff3b30" 
+                                   Tap="Delete_Tap"/>
+                </dxg:DataGridView.StartSwipeItems>
+
+                <dxg:DataGridView.Columns>
+                    <dxg:CheckBoxColumn FieldName="Bezahlstatus"
+                                        Caption="Status"
+                                        MinWidth="65" 
+                                        FixedStyle="Start"/>
+                    <dxg:TextColumn FieldName="Nachname"
+                                    Caption="Nachname"
+                                    MinWidth="100" 
+                                    FixedStyle="Start"/>
+                    <dxg:TextColumn FieldName="Vorname"
+                                    Caption="Vorname"
+                                    MinWidth="100" />
+                    <dxg:TextColumn FieldName="Strasse"
+                                    Caption="Straße"
+                                    MinWidth="100" />
+                    <dxg:TextColumn FieldName="Hausnummer"
+                                    Caption="Nr."
+                                    MinWidth="100" />
+                    <dxg:TextColumn FieldName="Postleitzahl"
+                                    Caption="PLZ"
+                                    MinWidth="100" />
+                    <dxg:TextColumn FieldName="Ort"
+                                    Caption="Ort"
+                                    MinWidth="100" />
+                    <dxg:TextColumn FieldName="EmailAdresse"
+                                    Caption="E-Mail"
+                                    MinWidth="100" />
+                    <dxg:TextColumn FieldName="Telefonnummer"
+                                    Caption="Telefon"
+                                    MinWidth="100" />
+                    <dxg:TextColumn FieldName="Mitgliedstatus.Mitgliedsstatus"
+                                    Caption="Art"
+                                    MinWidth="100" />
+                    <dxg:NumberColumn FieldName="Mitgliedstatus.Mitgliedsbeitrag"
+                                      DisplayFormat="C2"
+                                      Caption="Beitrag"
+                                      MinWidth="100" />
+                </dxg:DataGridView.Columns>
+            </dxg:DataGridView>
+
+            <Button Grid.Row="0"
+                    BorderColor="Transparent"
+                    BorderWidth="1"
+                    FontAttributes="Bold"
+                    BackgroundColor="#5186b7"
+                    CornerRadius="25"
+                    TextColor="White"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    Margin="0,0,20,22"
+                    Command="{Binding AddCommand}">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="fa-solid"
+                                     Size="Medium"
+                                     Glyph="{x:Static fa:FaSolid.Plus}" />
+                </Button.ImageSource>
+            </Button>
+
+        </Grid>
+
     </ContentPage.Content>
+
 </ContentPage>

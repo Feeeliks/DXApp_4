@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DXApp_4.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,14 @@ namespace DXApp_4.Views
 	{
 		public ReportPage ()
 		{
-			InitializeComponent ();
-		}
-	}
+            InitializeComponent();
+            BindingContext = App.ReportViewModel;
+        }
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            await App.ReportViewModel.RefreshBericht();
+        }
+    }
 }

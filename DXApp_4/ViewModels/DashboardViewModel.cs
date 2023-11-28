@@ -17,6 +17,13 @@ namespace DXApp_4.ViewModels
     public class DashboardViewModel : ViewModelBase
     {
         //Properties
+        private ProjektModel _selectedAktuellesProjekt;
+        public ProjektModel SelectedAktuellesProjekt
+        {
+            get => _selectedAktuellesProjekt;
+            set => SetProperty(ref _selectedAktuellesProjekt, value);
+        }
+
         public ObservableRangeCollection<ProjektModel> Projekte { get; set; }
 
         public AsyncCommand RefreshCommand { get; }
@@ -38,6 +45,11 @@ namespace DXApp_4.ViewModels
 
             //Other
             Projekte = new ObservableRangeCollection<ProjektModel>();
+
+            MessagingCenter.Subscribe<ProjektDetailsPage, ProjektModel>(this, "SelectedAktuellesProjekt", (sender, arg) =>
+            {
+                SelectedAktuellesProjekt = arg;
+            });
         }
 
         private ProjektModel _selectedProjekt;
@@ -47,19 +59,12 @@ namespace DXApp_4.ViewModels
             set => SetProperty(ref _selectedProjekt, value);
         }
 
-        private ProjektModel _aktuellesProjekt;
-        public ProjektModel AktuellesProjekt
-        {
-            get => _aktuellesProjekt;
-            set => SetProperty(ref _aktuellesProjekt, value);
-        }
-
         //Methods
         public async Task Refresh()
         {
             IsBusy = true;
 
-            await Task.Delay(2000);
+            await Task.Delay(500);
 
             Projekte.Clear();
 
@@ -76,9 +81,6 @@ namespace DXApp_4.ViewModels
             if (projekt == null)
                 return;
 
-            if (projekt != AktuellesProjekt)
-                AktuellesProjekt = projekt;
-
             SelectedProjekt = null;
 
             var route = $"{nameof(ProjektDetailsPage)}?ProjektId={projekt.Id}";
@@ -89,8 +91,6 @@ namespace DXApp_4.ViewModels
         {
             var route = $"{nameof(AddProjektPage)}";
             await Shell.Current.GoToAsync(route);
-            await Refresh();
         }
-
     }
 }

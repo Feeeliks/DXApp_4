@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+
 namespace DXApp_4.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]

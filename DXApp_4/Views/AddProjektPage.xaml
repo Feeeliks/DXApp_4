@@ -2,41 +2,83 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
              x:Class="DXApp_4.Views.AddProjektPage"
+             xmlns:dxg="http://schemas.devexpress.com/xamarin/2014/forms/datagrid"
              Title="{Binding Title}">
 
     <ContentPage.BindingContext>
-        <viewmodels:AddProjektViewModel/>
+        <viewmodels:AddProjektViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-    
-    <StackLayout Padding="20">
 
-        <Label Text="Name:"/>
+        <StackLayout Padding="20,20,20,40">
 
-        <Entry Text="{Binding Name}"/>
+            <Grid>
 
-        <Label Text="Konto Vorjahr:"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-        <Entry Text="{Binding KontoVorjahr}"/>
+                <dxe:NumericEdit LabelText="Projektname"
+                                 x:Name="Projektname"
+                                 Value="{Binding Name}"
+                                 Grid.Row="0"
+                                 ErrorText="Jahreszahl erforderlich"
+                                 IsUpDownIconVisible="True"
+                                 UpDownIconAlignment="Start"
+                                 SelectValueOnFocus="True"
+                                 ReserveBottomTextLine="True"
+                                 HasError="{Binding HasError}"/>
 
-        <Label Text="Handkasse Vorjahr:"/>
+                <dxe:NumericEdit LabelText="Vorjahresbestand Konto"
+                                 x:Name="VorjahresbestandKonto"
+                                 DisplayFormat="c"
+                                 Value="{Binding KontoVorjahr}"
+                                 Grid.Row="2"
+                                 ErrorText="Betrag erforderlich"
+                                 IsUpDownIconVisible="True"
+                                 UpDownIconAlignment="Start"
+                                 SelectValueOnFocus="True" />
 
-        <Entry Text="{Binding HandkasseVorjahr}"/>
+                <dxe:NumericEdit LabelText="Vorjahresbestand Handkasse"
+                                 x:Name="VorjahresbestandHandkasse"
+                                 DisplayFormat="c"
+                                 Value="{Binding HandkasseVorjahr}"
+                                 Grid.Row="4"
+                                 ErrorText="Betrag erforderlich"
+                                 IsUpDownIconVisible="True"
+                                 UpDownIconAlignment="Start"
+                                 SelectValueOnFocus="True" />
 
-        <Label Text="Ausschankkasse Vorjahr:"/>
+                <dxe:NumericEdit LabelText="Vorjahresbestand Ausschankkasse"
+                                 x:Name="VorjahresbestandAusschankkasse"
+                                 DisplayFormat="c"
+                                 Value="{Binding AusschankkasseVorjahr}"
+                                 Grid.Row="6"
+                                 ErrorText="Betrag erforderlich"
+                                 IsUpDownIconVisible="True"
+                                 UpDownIconAlignment="Start"
+                                 SelectValueOnFocus="True" />
 
-        <Entry Text="{Binding AusschankkasseVorjahr}"/>
+            </Grid>
 
-        <Button
-                Padding="20,0"
-                Command="{Binding SaveCommand}"
-                HorizontalOptions="Center"
-                Text="Save"
-                VerticalOptions="EndAndExpand"/>
+            <dxe:SimpleButton Padding="20,0"
+                              WidthRequest="300"
+                              HeightRequest="50"
+                              Command="{Binding SaveCommand}"
+                              HorizontalOptions="Center"
+                              Text="Projekt erstellen"
+                              VerticalOptions="EndAndExpand"/>
 
-    </StackLayout>
+        </StackLayout>
 
     </ContentPage.Content>
 

@@ -37,25 +37,42 @@
             </ShellContent.Icon>
         </ShellContent>
 
-        <ShellContent Title="Book" Route="BookPage" ContentTemplate="{DataTemplate local:BookPage}">
+        <ShellContent Title="Buch" Route="BookPage" ContentTemplate="{DataTemplate local:BookPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="fa-solid" Size="Medium" Glyph="{x:Static fa:FaSolid.Book}" />
             </ShellContent.Icon>
         </ShellContent>
 
-        <ShellContent Title="Report" Route="ReportPage" ContentTemplate="{DataTemplate local:ReportPage}">
-            <ShellContent.Icon>
-                <FontImageSource FontFamily="fa-solid" Size="Medium" Glyph="{x:Static fa:FaSolid.ChartPie}" />
-            </ShellContent.Icon>
-        </ShellContent>
+        <Tab Title="Bericht" >
+            <Tab.Icon>
+                <FontImageSource FontFamily="fa-solid"
+                                 Size="Medium"
+                                 Glyph="{x:Static fa:FaSolid.ChartPie}" />
+            </Tab.Icon>
+            
+            <ShellContent Title="Bericht"
+                          Route="ReportPage"
+                          ContentTemplate="{DataTemplate local:ReportPage}">
+            </ShellContent>
 
-        <ShellContent Title="Members" Route="MembersPage" ContentTemplate="{DataTemplate local:MembersPage}">
+            <ShellContent Title="Einnahmen"
+                          Route="ReportEinnahmenPage"
+                          ContentTemplate="{DataTemplate local:ReportEinnahmenPage}">
+            </ShellContent>
+
+            <ShellContent Title="Ausgaben"
+                          Route="ReportAusgabenPage"
+                          ContentTemplate="{DataTemplate local:ReportAusgabenPage}">
+            </ShellContent>
+        </Tab>
+
+        <ShellContent Title="Mitglieder" Route="MembersPage" ContentTemplate="{DataTemplate local:MembersPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="fa-solid" Size="Medium" Glyph="{x:Static fa:FaSolid.UserGroup}" />
             </ShellContent.Icon>
         </ShellContent>
 
-        <ShellContent Title="Settings" Route="SettingsPage" ContentTemplate="{DataTemplate local:SettingsPage}">
+        <ShellContent Title="Einstellungen" Route="SettingsPage" ContentTemplate="{DataTemplate local:SettingsPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="fa-solid" Size="Medium" Glyph="{x:Static fa:FaSolid.Sliders}" />
             </ShellContent.Icon>

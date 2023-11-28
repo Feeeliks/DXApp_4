@@ -1,12 +1,347 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DXApp_4.Views.ReportPage">
+             x:Class="DXApp_4.Views.ReportPage"
+             xmlns:dxg="http://schemas.devexpress.com/xamarin/2014/forms/datagrid"
+             xmlns:dxc="http://schemas.devexpress.com/xamarin/2014/forms/charts"
+             xmlns:viewmodels="clr-namespace:DXApp_4.ViewModels"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding SelectedAktuellesProjekt.Name}" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Grid.Row="0" />
+                <RowDefinition Grid.Row="1" Height="Auto"/>
+                <RowDefinition Grid.Row="2" Height="175"/>
+            </Grid.RowDefinitions>
+
+            <dxg:DataGridView x:Name="grid"
+                              Grid.Row="0"
+                              ItemsSource="{Binding Kassenbericht}"
+                              IsPullToRefreshEnabled="True"
+                              IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                              PullToRefreshCommand="{Binding RefreshBerichtCommand}"
+                              AllowVirtualHorizontalScrolling="True"
+                              ColumnHeaderHeight="75"
+                              SortMode="Multiple"
+                              AllowSort="False">
+
+                <dxg:DataGridView.ColumnHeaderStyle>
+                    <dxg:ColumnHeaderStyle FontAttributes="Bold" />
+                </dxg:DataGridView.ColumnHeaderStyle>
+
+                <dxg:DataGridView.TotalSummaries>
+                    <dxg:GridColumnSummary FieldName="EinnahmenGesamt"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="AusgabenGesamt"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="KontoGesamt"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="KontoEinnahmen"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="KontoAusgaben"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="HandkasseGesamt"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="HandkasseEinnahmen"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="HandkasseAusgaben"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="AusschankkasseGesamt"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="AusschankkasseEinnahmen"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="AusschankkasseAusgaben"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="Steuerklasse1Gesamt"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="Steuerklasse1Einnahmen"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="Steuerklasse1Ausgaben"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="Steuerklasse2Gesamt"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="Steuerklasse2Einnahmen"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="Steuerklasse2Ausgaben"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="Steuerklasse3Gesamt"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="Steuerklasse3Einnahmen"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="Steuerklasse3Ausgaben"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="Steuerklasse4Gesamt"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="Steuerklasse4Einnahmen"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="Steuerklasse4Ausgaben"
+                                           Type="Sum"
+                                           DisplayFormat="C2" />
+                    <dxg:GridColumnSummary FieldName="Vereinsbestand"
+                                           Type="Sum"
+                                           DisplayFormat="Summe: " />
+                </dxg:DataGridView.TotalSummaries>
+
+                <dxg:DataGridView.Columns>
+                    <dxg:TextColumn FieldName="MonatString"
+                                    Caption="Monat"
+                                    MinWidth="120"
+                                    FixedStyle="Start" />
+                    <dxg:NumberColumn FieldName="Vereinsbestand"
+                                      Caption="Vereins-bestand"
+                                      DisplayFormat="C2"
+                                      MinWidth="90" />
+                    <dxg:NumberColumn FieldName="EinnahmenGesamt"
+                                      Caption="Einnahmen Gesamt"
+                                      DisplayFormat="C2"
+                                      MinWidth="90" />
+                    <dxg:NumberColumn FieldName="AusgabenGesamt"
+                                      Caption="Ausgaben Gesamt"
+                                      DisplayFormat="C2"
+                                      MinWidth="90" />
+                    <dxg:NumberColumn FieldName="KontoGesamt"
+                                      Caption="Bestand Konto"
+                                      DisplayFormat="C2"
+                                      MinWidth="90" />
+                    <dxg:NumberColumn FieldName="KontoEinnahmen"
+                                      Caption="Einnahmen Konto"
+                                      DisplayFormat="C2"
+                                      MinWidth="90" />
+                    <dxg:NumberColumn FieldName="KontoAusgaben"
+                                      Caption="Ausgaben Konto"
+                                      DisplayFormat="C2"
+                                      MinWidth="90" />
+                    <dxg:NumberColumn FieldName="HandkasseGesamt"
+                                      Caption="Bestand Handkasse"
+                                      DisplayFormat="C2"
+                                      MinWidth="90" />
+                    <dxg:NumberColumn FieldName="HandkasseEinnahmen"
+                                      Caption="Einnahmen Handkasse"
+                                      DisplayFormat="C2"
+                                      MinWidth="90" />
+                    <dxg:NumberColumn FieldName="HandkasseAusgaben"
+                                      Caption="Ausgaben Handkasse"
+                                      DisplayFormat="C2"
+                                      MinWidth="90" />
+                    <dxg:NumberColumn FieldName="AusschankkasseGesamt"
+                                      Caption="Bestand Ausschankkasse"
+                                      DisplayFormat="C2"
+                                      MinWidth="90" />
+                    <dxg:NumberColumn FieldName="AusschankkasseEinnahmen"
+                                      Caption="Einnahmen Ausschankkasse"
+                                      DisplayFormat="C2"
+                                      MinWidth="90" />
+                    <dxg:NumberColumn FieldName="AusschankkasseAusgaben"
+                                      Caption="Ausgaben Ausschankkasse"
+                                      DisplayFormat="C2"
+                                      MinWidth="90" />
+                    <dxg:NumberColumn FieldName="Steuerklasse1Gesamt"
+                                      Caption="Bilanz Steuerklasse I"
+                                      DisplayFormat="C2"
+                                      MinWidth="120" />
+                    <dxg:NumberColumn FieldName="Steuerklasse1Einnahmen"
+                                      Caption="Einnahmen Steuerklasse I"
+                                      DisplayFormat="C2"
+                                      MinWidth="120" />
+                    <dxg:NumberColumn FieldName="Steuerklasse1Ausgaben"
+                                      Caption="Ausgaben Steuerklasse I"
+                                      DisplayFormat="C2"
+                                      MinWidth="120" />
+                    <dxg:NumberColumn FieldName="Steuerklasse2Gesamt"
+                                      Caption="Bilanz Steuerklasse II"
+                                      DisplayFormat="C2"
+                                      MinWidth="120" />
+                    <dxg:NumberColumn FieldName="Steuerklasse2Einnahmen"
+                                      Caption="Einnahmen Steuerklasse II"
+                                      DisplayFormat="C2"
+                                      MinWidth="120" />
+                    <dxg:NumberColumn FieldName="Steuerklasse2Ausgaben"
+                                      Caption="Ausgaben Steuerklasse II"
+                                      DisplayFormat="C2"
+                                      MinWidth="120" />
+                    <dxg:NumberColumn FieldName="Steuerklasse3Gesamt"
+                                      Caption="Bilanz Steuerklasse III"
+                                      DisplayFormat="C2"
+                                      MinWidth="120" />
+                    <dxg:NumberColumn FieldName="Steuerklasse3Einnahmen"
+                                      Caption="Einnahmen Steuerklasse III"
+                                      DisplayFormat="C2"
+                                      MinWidth="120" />
+                    <dxg:NumberColumn FieldName="Steuerklasse3Ausgaben"
+                                      Caption="Ausgaben Steuerklasse III"
+                                      DisplayFormat="C2"
+                                      MinWidth="120" />
+                    <dxg:NumberColumn FieldName="Steuerklasse4Gesamt"
+                                      Caption="Bilanz Steuerklasse IV"
+                                      DisplayFormat="C2"
+                                      MinWidth="120" />
+                    <dxg:NumberColumn FieldName="Steuerklasse4Einnahmen"
+                                      Caption="Einnahmen Steuerklasse IV"
+                                      DisplayFormat="C2"
+                                      MinWidth="120" />
+                    <dxg:NumberColumn FieldName="Steuerklasse4Ausgaben"
+                                      Caption="Ausgaben Steuerklasse IV"
+                                      DisplayFormat="C2"
+                                      MinWidth="120" />
+                </dxg:DataGridView.Columns>
+            </dxg:DataGridView>
+
+            <Frame Grid.Row="1" HasShadow="True" HeightRequest="-39"/>
+
+            <Grid Grid.Row="2" Padding="15">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Grid.Row="0"
+                                   Height="*"/>
+                    <RowDefinition Grid.Row="1"
+                                   Height="*" />
+                    <RowDefinition Grid.Row="2"
+                                   Height="*" />
+                    <RowDefinition Grid.Row="3"
+                                   Height="*" />
+                    <RowDefinition Grid.Row="4"
+                                   Height="*" />
+                    <RowDefinition Grid.Row="5"
+                                   Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Grid.Column="0"
+                                      Width="100" />
+                    <ColumnDefinition Grid.Column="1"
+                                      Width="*" />
+                    <ColumnDefinition Grid.Column="2"
+                                      Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       FontSize="13"
+                       FontAttributes="Bold"
+                       Text="Vereinsbestand" />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       FontSize="13"
+                       FontAttributes="Bold"
+                       Text="Kontostand:" />
+                <Label Grid.Row="2"
+                       Grid.Column="0"
+                       FontSize="13"
+                       FontAttributes="Bold"
+                       Text="Handkasse:" />
+                <Label Grid.Row="3"
+                       Grid.Column="0"
+                       FontSize="13"
+                       FontAttributes="Bold"
+                       Text="Ausschank:" />
+                <Label Grid.Row="4"
+                       Grid.Column="0"
+                       FontSize="13"
+                       FontAttributes="Bold"
+                       Text="Gesamt:" />
+                <Label Grid.Row="5"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       FontSize="13"
+                       FontAttributes="Bold"
+                       Text="Bilanz:" />
+
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       FontSize="13"
+                       FontAttributes="Bold"
+                       Text="Vorjahr"
+                       HorizontalTextAlignment="Center" />
+
+                <Label Grid.Row="0"
+                       Grid.Column="2"
+                       FontSize="13"
+                       FontAttributes="Bold"
+                       Text="Aktuell"
+                       HorizontalTextAlignment="Center" />
+
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       FontSize="13"
+                       Text="{Binding SelectedAktuellesProjekt.BestandKontoVorjahr, StringFormat='+ {0:C2}'}"
+                       HorizontalTextAlignment="Center" />
+                <Label Grid.Row="2"
+                       Grid.Column="1"
+                       FontSize="13"
+                       Text="{Binding SelectedAktuellesProjekt.BestandHandkasseVorjahr, StringFormat='+ {0:C2}'}"
+                       HorizontalTextAlignment="Center" />
+                <Label Grid.Row="3"
+                       Grid.Column="1"
+                       FontSize="13"
+                       Text="{Binding SelectedAktuellesProjekt.BestandAusschankkasseVorjahr, StringFormat='+ {0:C2}'}"
+                       HorizontalTextAlignment="Center" />
+                <Label Grid.Row="4"
+                       Grid.Column="1"
+                       FontSize="13"
+                       Text="{Binding SelectedAktuellesProjekt.BestandGesamtVorjahr, StringFormat='= {0:C2}'}"
+                       HorizontalTextAlignment="Center" />
+
+                <Label Grid.Row="1"
+                       Grid.Column="2"
+                       FontSize="13"
+                       Text="{Binding SelectedAktuellesProjekt.BestandKonto, StringFormat='+ {0:C2}'}"
+                       HorizontalTextAlignment="Center" />
+                <Label Grid.Row="2"
+                       Grid.Column="2"
+                       FontSize="13"
+                       Text="{Binding SelectedAktuellesProjekt.BestandHandkasse, StringFormat='+ {0:C2}'}"
+                       HorizontalTextAlignment="Center" />
+                <Label Grid.Row="3"
+                       Grid.Column="2"
+                       FontSize="13"
+                       Text="{Binding SelectedAktuellesProjekt.BestandAusschankkasse, StringFormat='+ {0:C2}'}"
+                       HorizontalTextAlignment="Center" />
+                <Label Grid.Row="4"
+                       Grid.Column="2"
+                       FontSize="13"
+                       TextDecorations="Underline"
+                       Text="{Binding SelectedAktuellesProjekt.BestandGesamt, StringFormat='= {0:C2}'}"
+                       HorizontalTextAlignment="Center" />
+                <Label Grid.Row="5"
+                       Grid.Column="2"
+                       FontSize="13"
+                       TextDecorations="Underline"
+                       Text="{Binding Bilanz, StringFormat='= {0:C2}'}"
+                       HorizontalTextAlignment="Center" />
+
+            </Grid>
+
+        </Grid>
+
     </ContentPage.Content>
+
 </ContentPage>

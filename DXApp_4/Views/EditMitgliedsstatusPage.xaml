@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             xmlns:fa="clr-namespace:DXApp_4.Ressources"
+             x:Class="DXApp_4.Views.EditMitgliedsstatusPage"
+             Title="Mitgliedsbeitrag bearbeiten">
+
+    <ContentPage.Content>
+
+        <ScrollView>
+
+            <StackLayout Padding="20,10,20,20">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="0" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="0" />
+                    </Grid.RowDefinitions>
+
+                    <dxe:TextEdit LabelText="Bezeichnung"
+                                  Text="{Binding Mitgliedsstatus}"
+                                  Grid.Row="0"
+                                  TextHorizontalAlignment="Start"
+                                  x:Name="Bezeichnung" />
+
+                    <dxe:NumericEdit LabelText="Mitgliedsbeitrag"
+                                     Value="{Binding Mitgliedsbeitrag}"
+                                     Grid.Row="2"
+                                     DisplayFormat="C2"
+                                     SelectValueOnFocus="True"
+                                     TextHorizontalAlignment="Start"
+                                     x:Name="Mitgliedsbeitrag" />
+
+                </Grid>
+
+                <dxe:SimpleButton Padding="20,0"
+                                  WidthRequest="300"
+                                  HeightRequest="50"
+                                  HorizontalOptions="Center"
+                                  Text="Speichern"
+                                  VerticalOptions="EndAndExpand"
+                                  Clicked="SimpleButton_Clicked" />
+
+            </StackLayout>
+
+        </ScrollView>
+
+    </ContentPage.Content>
+
+</ContentPage>
